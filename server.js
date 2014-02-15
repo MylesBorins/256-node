@@ -1,11 +1,11 @@
+// http for server
 var http = require('http');
-var multiparty = require('multiparty');
-
+// consumer is library that has helper function addFile and getFiles
+// both of these functions return promises
 var consumer = require('./lib/consumer.js');
 
 var server = http.createServer(function (req, res) {
   'use strict';
-  
   if (req.method === 'POST' && req.url === '/soundshare/sound') {
     consumer.addFile(req)
     .then(function () {
@@ -19,7 +19,6 @@ var server = http.createServer(function (req, res) {
       res.end(JSON.stringify(files));
     });
   }
-  
 });
 
 server.listen(8080, '0.0.0.0');
